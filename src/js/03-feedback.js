@@ -9,24 +9,23 @@ const emailInput = form.querySelector('input[name="email"]');
 const messageInput = form.querySelector('textarea[name="message"]');
 
 
-// emailInput.addEventListener('input', onEmailInput);
 form.addEventListener('input', throttle(onFormInput, 500));
 form.addEventListener('submit', onFormSubmit);
 
 function onFormInput (evt) {
     formData[evt.target.name] = evt.target.value;
     saveFormData();
-    };
+};
 
     populateForm();
 
     function onFormSubmit(evt) {
         evt.preventDefault();
         console.log(formData);
-        evt.currentTarget.reset();
         localStorage.removeItem(STORAGE_KEY);
         formData.email = '';
         formData.message = '';
+        evt.currentTarget.reset();
     }
 
     function saveFormData() {
@@ -40,6 +39,11 @@ function onFormInput (evt) {
         const parsedData = JSON.parse(savedData);
         emailInput.value = parsedData.email || '';
         messageInput.value = parsedData.message || '';
+        formData.email = emailInput.value;
+        formData.message = messageInput.value;
         }
     }
+
+
+
 
